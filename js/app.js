@@ -25,6 +25,22 @@ function shuffle(array) {
     return array;
 }
 
+// Add Event Listeners to cards via event delegation and 
+const myDeck =document.querySelector('.deck');  //
+
+// What to do when card is CLICKED
+myDeck.addEventListener('click', applyListener);
+
+
+// Functions --------------------------------------------------------------------------------------------
+  //If <li> is clicked, call toggle classe function
+function applyListener(event) {  
+  if (event.target.nodeName==="LI") {
+    toggleCardClass();
+  }
+}
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:

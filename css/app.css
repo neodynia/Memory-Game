@@ -65,17 +65,17 @@ h1 {
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
-.deck .card.open {   /* maybe, turns cards from black to blue to show flipped, does not effect symbol */
+.deck .card.open {   /* OPEN class, turns cards from black to blue to show flipped, does not effect symbol */
     transform: rotateY(0);
     background: #02b3e4;  /* color for single flipped cards */
     cursor: default; /* nullifies color */
 }
 
-.deck .card.show {  /* shows symbol on card face when flipped, for non-matched single cards */
+.deck .card.show {  /* SHOW class, symbol on card face when flipped, for non-matched single cards */
     font-size: 33px;
 }
 
-.deck .card.match { /* shops matched cards, removes curser, shows symbol, applies color */
+.deck .card.match { /* MATCH class, removes curser, shows symbol, applies color */
     cursor: default; /* nullifies color */
     background: #02ccba;  /* color for matched cards */
     font-size: 33px;
