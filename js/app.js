@@ -40,7 +40,11 @@ function applyListener(event) {
   }
 }
 
-
+  //toggle the show/Open classes which turn card blue and show symbol
+  function toggleCardClass() {
+    event.target.classList.toggle('show');
+    event.target.classList.toggle('open');     
+  }
 
 /*
  * set up the event listener for a card. If a card is clicked:
