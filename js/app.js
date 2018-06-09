@@ -54,9 +54,25 @@ function toggleCardClass(myClickedCard) {
 
 // Add clicked cards to the clickedCards array (will only have TWO cards at most)
 function addCardsOpened(myClickedCard) {
-  if (myClickedCard.classList.contains("open") && clickedCards.length <2) { // Add card to array ONLY if card recently toggled/flipped over
+  // if (myClickedCard.classList.contains("open") && clickedCards.length <2) { // Add card to array ONLY if card recently toggled/flipped over
+  if (myClickedCard.classList.contains("open") ) { // Add card to array ONLY if card recently toggled/flipped over
     clickedCards.push(myClickedCard);
-    console.log(clickedCards);
+
+    if(clickedCards.length === 2)  { // if we have two cards, compare theese two cards
+      compareCards();
+    }    
+  }
+}
+
+function compareCards() {
+  // console.log(clickedCards);
+  // console.log(`${clickedCards[0].children[0].className} ---- ${clickedCards[1].children[0].className}`);
+  const item_0 = clickedCards[0].children[0].className;
+  const item_1 = clickedCards[1].children[0].className;
+  if(item_0 === item_1) {
+    console.log("we HAVE matched");    
+  } else  {
+    console.log("we have NOT matched");
   }
 }
 
