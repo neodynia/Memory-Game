@@ -45,11 +45,9 @@ function applyListener(event) {
 
 // Toggle the show/Open classes which turn card blue and show symbol
 function toggleCardClass(myClickedCard) {
-  // if (clickedCards.length <2) { //Only allow if less 1 card    ****TO DO****
-    event.target.classList.toggle("show");
-    event.target.classList.toggle("open"); 
-    addCardsOpened(myClickedCard);  //Add cards to array  
-  // }   
+  event.target.classList.toggle("show");
+  event.target.classList.toggle("open"); 
+  addCardsOpened(myClickedCard);  //Add cards to array  
 }
 
 // Add clicked cards to the clickedCards array (will only have TWO cards at most)
@@ -64,19 +62,40 @@ function addCardsOpened(myClickedCard) {
   }
 }
 
+// Compare two cards when the array has two cards added to it
 function compareCards() {
-  // console.log(clickedCards);
+  console.log(clickedCards);
   // console.log(`${clickedCards[0].children[0].className} ---- ${clickedCards[1].children[0].className}`);
   const item_0 = clickedCards[0].children[0].className;
   const item_1 = clickedCards[1].children[0].className;
   if(item_0 === item_1) {
-    console.log("we HAVE matched");    
+    console.log("we HAVE matched");
+    cardsMatchTrue();    
   } else  {
     console.log("we have NOT matched");
+    cardsMatchFalse();  
   }
 }
 
+// If cards match remove show/open class, add match class
+function cardsMatchTrue() {
+  clickedCards[0].classList.remove("show"); 
+  clickedCards[0].classList.remove("open"); 
+  clickedCards[0].classList.add("match");
+  clickedCards[1].classList.remove("show"); 
+  clickedCards[1].classList.remove("open"); 
+  clickedCards[1].classList.add("match");
+  clickedCards = []; // Clear array as we only need to work with two cards at a time
+}
 
+// If cards DO NOT match, remove show/open class(I.e., put face down)
+function cardsMatchFalse() {
+  clickedCards[0].classList.remove("show"); 
+  clickedCards[0].classList.remove("open"); 
+  clickedCards[1].classList.remove("show"); 
+  clickedCards[1].classList.remove("open"); 
+  clickedCards = []; // Clear array as we only need to work with two cards at a time
+}
 
 
 /*
