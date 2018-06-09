@@ -48,9 +48,11 @@ function applyListener(event) {
 
 // Toggle the show/Open classes which turn card blue and show symbol
 function toggleCardClass(myClickedCard) {
-  event.target.classList.toggle("show");
-  event.target.classList.toggle("open"); 
-  addCardsOpened(myClickedCard);  //Add cards to array  
+  if(!myClickedCard.classList.contains("match")) { //If already matched, don't allow user to interact with it
+    event.target.classList.toggle("show");
+    event.target.classList.toggle("open"); 
+    addCardsOpened(myClickedCard);  //Add cards to array  
+  }
 }
 
 // Add clicked cards to the clickedCards array (will only have TWO cards at most)
@@ -89,7 +91,7 @@ function cardsMatchTrue() {
   clickedCards[1].classList.remove("open"); 
   clickedCards[1].classList.add("match");
   clickedCards = []; // Clear array as we only need to work with two cards at a time
-  incrementMoveCount();
+  incrementMoveCount(); //Add a move each time cards are matched
 }
 
 // If cards DO NOT match, remove show/open class(I.e., put face down)
@@ -99,7 +101,7 @@ function cardsMatchFalse() {
   clickedCards[1].classList.remove("show"); 
   clickedCards[1].classList.remove("open"); 
   clickedCards = []; // Clear array as we only need to work with two cards at a time
-  incrementMoveCount();
+  incrementMoveCount(); //Add a move each time cards are NOT matched
 }
 
 // Increment move Counter
