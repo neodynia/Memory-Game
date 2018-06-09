@@ -34,6 +34,9 @@ myDeck.addEventListener('click', applyListener);
 // Create array for clicked cards
 let clickedCards = [];
 
+// Create move counter
+let moveCount = 0;
+
 // Functions --------------------------------------------------------------------------------------------
 // If <li> is clicked, call toggle classe function
 function applyListener(event) {  
@@ -86,6 +89,7 @@ function cardsMatchTrue() {
   clickedCards[1].classList.remove("open"); 
   clickedCards[1].classList.add("match");
   clickedCards = []; // Clear array as we only need to work with two cards at a time
+  incrementMoveCount();
 }
 
 // If cards DO NOT match, remove show/open class(I.e., put face down)
@@ -95,6 +99,19 @@ function cardsMatchFalse() {
   clickedCards[1].classList.remove("show"); 
   clickedCards[1].classList.remove("open"); 
   clickedCards = []; // Clear array as we only need to work with two cards at a time
+  incrementMoveCount();
+}
+
+// Increment move Counter
+function incrementMoveCount() {
+  moveCount++;
+  console.log(moveCount);
+  const movesOnPage = document.querySelector(".moves");
+  if (moveCount == 1) { // Added this condition to check for 'one MOVE' vs 'two MOVES'
+    movesOnPage.textContent = `${moveCount} Move`;
+  } else {
+    movesOnPage.textContent = `${moveCount} Moves`;
+  }
 }
 
 
