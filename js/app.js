@@ -31,20 +31,37 @@ const myDeck =document.querySelector('.deck');  //
 // What to do when card is CLICKED
 myDeck.addEventListener('click', applyListener);
 
+// Create array for clicked cards
+let clickedCards = [];
 
 // Functions --------------------------------------------------------------------------------------------
-  //If <li> is clicked, call toggle classe function
+// If <li> is clicked, call toggle classe function
 function applyListener(event) {  
-  if (event.target.nodeName==="LI") {
-    toggleCardClass();
+  const myClickedCard = event.target;
+  if (myClickedCard.nodeName==="LI") {
+    toggleCardClass(myClickedCard);
   }
 }
 
-  //toggle the show/Open classes which turn card blue and show symbol
-  function toggleCardClass() {
-    event.target.classList.toggle('show');
-    event.target.classList.toggle('open');     
+// Toggle the show/Open classes which turn card blue and show symbol
+function toggleCardClass(myClickedCard) {
+  // if (clickedCards.length <2) { //Only allow if less 1 card    ****TO DO****
+    event.target.classList.toggle("show");
+    event.target.classList.toggle("open"); 
+    addCardsOpened(myClickedCard);  //Add cards to array  
+  // }   
+}
+
+// Add clicked cards to the clickedCards array (will only have TWO cards at most)
+function addCardsOpened(myClickedCard) {
+  if (myClickedCard.classList.contains("open") && clickedCards.length <2) { // Add card to array ONLY if card recently toggled/flipped over
+    clickedCards.push(myClickedCard);
+    console.log(clickedCards);
   }
+}
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
