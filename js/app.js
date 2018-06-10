@@ -17,6 +17,10 @@ console.log(cardClassesNodeList);
 const cardClassesArray = Array.apply(null, cardClassesNodeList); //Convert nodelist to array
 console.log(cardClassesArray);
 
+// Shuffle the array of card classes
+const shuffledClasses = shuffle(cardClassesArray);
+console.log(shuffledClasses);
+
 
 
 
