@@ -10,20 +10,16 @@
  *   - add each card's HTML to the page
  */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+// Get class names of cards, put into an array
+const cardClassesNodeList = document.querySelectorAll(".deck .card i"); //Get nodelist of classes on cards
+console.log(cardClassesNodeList);
+const cardClassesArray = Array.apply(null, cardClassesNodeList); //Convert nodelist to array
+console.log(cardClassesArray);
 
-    return array;
-}
+
+
+
 
 // Add Event Listeners to cards via event delegation and 
 const myDeck =document.querySelector('.deck');  //
@@ -39,6 +35,21 @@ let moveCount = 0;
 
 
 // Functions --------------------------------------------------------------------------------------------
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 // If <li> is clicked, call toggle classe function
 function applyListener(event) {  
   const myClickedCard = event.target;
