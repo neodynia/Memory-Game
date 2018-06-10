@@ -120,18 +120,20 @@ function incrementMoveCount() {
 
 // Check if game is won or not, returns bool
 function isGameOver() {
-  let matchCount = 0;
+  let matchCount = 0; // var to count number of MATCHED cards. If 16 matches, game===OVER
   const getDeck = document.querySelectorAll(".card");
 
-  Array.prototype.forEach.call(getDeck, function (item) {
+  Array.prototype.forEach.call(getDeck, function (item) { //loop through nodelist
     if( item.classList.contains('match') ) {
       matchCount++;
       console.log(matchCount);
     } 
   });
 
-  if (matchCount === 16) {
+  if (matchCount === 16) { //If 16 matches, game is over
     return true;
+  } else  {
+    return false;
   }
 }
 
