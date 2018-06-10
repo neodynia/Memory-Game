@@ -37,6 +37,7 @@ let clickedCards = [];
 // Create move counter
 let moveCount = 0;
 
+
 // Functions --------------------------------------------------------------------------------------------
 // If <li> is clicked, call toggle classe function
 function applyListener(event) {  
@@ -69,15 +70,15 @@ function addCardsOpened(myClickedCard) {
 
 // Compare two cards when the array has two cards added to it
 function compareCards() {
-  console.log(clickedCards);
+  // console.log(clickedCards);
   // console.log(`${clickedCards[0].children[0].className} ---- ${clickedCards[1].children[0].className}`);
   const item_0 = clickedCards[0].children[0].className;
   const item_1 = clickedCards[1].children[0].className;
   if(item_0 === item_1) {
-    console.log("we HAVE matched");
+    // console.log("we HAVE matched");
     cardsMatchTrue();    
   } else  {
-    console.log("we have NOT matched");
+    // console.log("we have NOT matched");
     cardsMatchFalse();  
   }
 }
@@ -90,8 +91,9 @@ function cardsMatchTrue() {
   clickedCards[1].classList.remove("show"); 
   clickedCards[1].classList.remove("open"); 
   clickedCards[1].classList.add("match");
-  clickedCards = []; // Clear array as we only need to work with two cards at a time
-  incrementMoveCount(); //Add a move each time cards are matched
+  clickedCards = [];    // Clear array as we only need to work with two cards at a time
+  incrementMoveCount(); // Add a move each time cards are matched
+  isGameOver();         // After a successfull move, check if game is won or not
 }
 
 // If cards DO NOT match, remove show/open class(I.e., put face down)
@@ -107,12 +109,29 @@ function cardsMatchFalse() {
 // Increment move Counter
 function incrementMoveCount() {
   moveCount++;
-  console.log(moveCount);
+  // console.log(moveCount);
   const movesOnPage = document.querySelector(".moves");
   if (moveCount == 1) { // Added this condition to check for 'one MOVE' vs 'two MOVES'
     movesOnPage.textContent = `${moveCount} Move`;
   } else {
     movesOnPage.textContent = `${moveCount} Moves`;
+  }
+}
+
+// Check if game is won or not, returns bool
+function isGameOver() {
+  let matchCount = 0;
+  const getDeck = document.querySelectorAll(".card");
+
+  Array.prototype.forEach.call(getDeck, function (item) {
+    if( item.classList.contains('match') ) {
+      matchCount++;
+      console.log(matchCount);
+    } 
+  });
+
+  if (matchCount === 16) {
+    return true;
   }
 }
 
