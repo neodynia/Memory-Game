@@ -10,27 +10,28 @@
  *   - add each card's HTML to the page
  */
 
+
+// Comment out BELOW to use fixed board -------------------------------------------------
 // Create array of classNames from HTML
-const manualListTemp = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bomb","fa fa-bicycle"]; 
+// const manualListTemp = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bomb","fa fa-bicycle"]; 
 
-// function that will return a double sized version of this array. This way to change
-// the icons in the array, I only need to add 8 items to array above instead of 16.
-const manualList = doubleArray(manualListTemp);
-console.log(manualList);
-
-
-// Get class names of cards, put into an array
-// const cardClassesNodeList = document.querySelectorAll(".deck .card i"); //Get nodelist of classes on cards
+// // function that will return a double sized version of this array. This way to change
+// // the icons in the array, I only need to add 8 items to array above instead of 16.
+// const manualList = doubleArray(manualListTemp);
+// console.log(manualList);
 
 
-// Get shuffled array of Cards
-const shuffledArray = shuffle(manualList);
-console.log(shuffledArray);
+// // Get shuffled array of Cards
+// const shuffledArray = shuffle(manualList);
+// console.log(shuffledArray);
 
-// Add shuffled classes to the <i> elements
-addShuffledClasses();
+// // Add shuffled classes to the <i> elements
+// addShuffledClasses();
 
+// Comment out ABOVE to use fixed board ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+// Scoring system
+let myScore = 10;
 
 // Add Event Listeners to cards via event delegation and 
 const myDeck =document.querySelector('.deck');  //
@@ -56,11 +57,11 @@ function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
   while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
   }
 
   return array;
@@ -131,6 +132,7 @@ function cardsMatchFalse() {
   clickedCards[1].classList.remove("open"); 
   clickedCards = []; // Clear array as we only need to work with two cards at a time
   incrementMoveCount(); //Add a move each time cards are NOT matched
+  keepingScore();
 }
 
 // Increment move Counter-----------------------------------------------------------
@@ -158,6 +160,8 @@ function isGameOver() {
   });
 
   if (matchCount === 16) { //If 16 matches, game is over
+    console.log("Game is over");
+    
     return true;
   } else  {
     return false;
@@ -177,6 +181,11 @@ function addShuffledClasses() {
   for (let i = 0; i < shuffledArray.length; i++) {
     deckOfCards.children[i].children[0].className = shuffledArray[i];
   }
+}
+
+// Function to reduce score on an incorrrect guess
+function keepingScore() {
+    myScore--;
 }
 
 
