@@ -20,11 +20,15 @@ console.log(manualList);
 
 
 // Get class names of cards, put into an array
-const cardClassesNodeList = document.querySelectorAll(".deck .card i"); //Get nodelist of classes on cards
+// const cardClassesNodeList = document.querySelectorAll(".deck .card i"); //Get nodelist of classes on cards
 
 
-// Create New Container Deck with shuffled cards
-createShuffledHTMLdeck();
+// Get shuffled array of Cards
+const shuffledArray = shuffle(manualList);
+console.log(shuffledArray);
+
+
+
 
 
 // Add Event Listeners to cards via event delegation and 
@@ -39,8 +43,13 @@ let clickedCards = [];
 // Create move counter
 let moveCount = 0;
 
+// |-----------------------------------------------------------------------------------|
+// |Functions--------------------------------------------------------------------------|
+// |                                                                                   |
+// |                                                                                   |
+// |Functions -------------------------------------------------------------------------|
+// |-----------------------------------------------------------------------------------|
 
-// Functions -------------------------------------------------------------------------
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
