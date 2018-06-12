@@ -10,19 +10,21 @@
  *   - add each card's HTML to the page
  */
 
+// Create array of classNames from HTML
+const manualListTemp = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt","fa fa-cube","fa fa-leaf","fa fa-bomb","fa fa-bicycle"]; 
+
+// function that will return a double sized version of this array. This way to change
+// the icons in the array, I only need to add 8 items to array above instead of 16.
+const manualList = doubleArray(manualListTemp);
+console.log(manualList);
+
 
 // Get class names of cards, put into an array
 const cardClassesNodeList = document.querySelectorAll(".deck .card i"); //Get nodelist of classes on cards
-console.log(cardClassesNodeList);
-const cardClassesArray = Array.apply(null, cardClassesNodeList); //Convert nodelist to array
-console.log(cardClassesArray);
-
-// Shuffle the array of card classes
-const shuffledClasses = shuffle(cardClassesArray);
-console.log(shuffledClasses);
 
 
-
+// Create New Container Deck with shuffled cards
+createShuffledHTMLdeck();
 
 
 // Add Event Listeners to cards via event delegation and 
@@ -38,7 +40,7 @@ let clickedCards = [];
 let moveCount = 0;
 
 
-// Functions --------------------------------------------------------------------------------------------
+// Functions -------------------------------------------------------------------------
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -54,7 +56,7 @@ function shuffle(array) {
   return array;
 }
 
-// If <li> is clicked, call toggle classe function
+// If <li> is clicked, call toggle classe function-----------------------------------
 function applyListener(event) {  
   const myClickedCard = event.target;
   if (myClickedCard.nodeName==="LI") {
@@ -62,7 +64,7 @@ function applyListener(event) {
   }
 }
 
-// Toggle the show/Open classes which turn card blue and show symbol
+// Toggle the show/Open classes which turn card blue and show symbol-------------------
 function toggleCardClass(myClickedCard) {
   if(!myClickedCard.classList.contains("match")) { //If already matched, don't allow user to interact with it
     event.target.classList.toggle("show");
@@ -71,7 +73,7 @@ function toggleCardClass(myClickedCard) {
   }
 }
 
-// Add clicked cards to the clickedCards array (will only have TWO cards at most)
+// Add clicked cards to the clickedCards array (will only have TWO cards at most)----
 function addCardsOpened(myClickedCard) {
   // if (myClickedCard.classList.contains("open") && clickedCards.length <2) { // Add card to array ONLY if card recently toggled/flipped over
   if (myClickedCard.classList.contains("open") ) { // Add card to array ONLY if card recently toggled/flipped over
@@ -83,7 +85,7 @@ function addCardsOpened(myClickedCard) {
   }
 }
 
-// Compare two cards when the array has two cards added to it
+// Compare two cards when the array has two cards added to it----------------------
 function compareCards() {
   // console.log(clickedCards);
   // console.log(`${clickedCards[0].children[0].className} ---- ${clickedCards[1].children[0].className}`);
@@ -98,7 +100,7 @@ function compareCards() {
   }
 }
 
-// If cards match remove show/open class, add match class
+// If cards match remove show/open class, add match class--------------------------
 function cardsMatchTrue() {
   clickedCards[0].classList.remove("show"); 
   clickedCards[0].classList.remove("open"); 
@@ -111,7 +113,7 @@ function cardsMatchTrue() {
   isGameOver();         // After a successfull move, check if game is won or not
 }
 
-// If cards DO NOT match, remove show/open class(I.e., put face down)
+// If cards DO NOT match, remove show/open class(I.e., put face down)---------------
 function cardsMatchFalse() {
   clickedCards[0].classList.remove("show"); 
   clickedCards[0].classList.remove("open"); 
@@ -121,7 +123,7 @@ function cardsMatchFalse() {
   incrementMoveCount(); //Add a move each time cards are NOT matched
 }
 
-// Increment move Counter
+// Increment move Counter-----------------------------------------------------------
 function incrementMoveCount() {
   moveCount++;
   // console.log(moveCount);
@@ -133,7 +135,7 @@ function incrementMoveCount() {
   }
 }
 
-// Check if game is won or not, returns bool
+// Check if game is won or not, returns bool-------------------------------------------
 function isGameOver() {
   let matchCount = 0; // var to count number of MATCHED cards. If 16 matches, game===OVER
   const getDeck = document.querySelectorAll(".card");
@@ -141,7 +143,7 @@ function isGameOver() {
   Array.prototype.forEach.call(getDeck, function (item) { //loop through nodelist
     if( item.classList.contains('match') ) {
       matchCount++;
-      console.log(matchCount);
+      // console.log(matchCount);
     } 
   });
 
@@ -150,6 +152,17 @@ function isGameOver() {
   } else  {
     return false;
   }
+}
+
+// Function that returns a double sized array of whatever is passed into it---------
+function doubleArray(myArr) {
+  tempArray = myArr;
+  myArr = myArr.concat(tempArray);
+  return myArr;
+}
+
+function createShuffledHTMLdeck() {
+
 }
 
 
