@@ -30,6 +30,9 @@
 
 // Comment out ABOVE to use fixed board ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+// Initialize winning move count
+let matchCount = 0;
+
 // Scoring system
 let myScore = 10;
 
@@ -45,14 +48,15 @@ let clickedCards = [];
 // Create move counter
 let moveCount = 0;
 
-// |-----------------------------------------------------------------------------------|
-// |Functions--------------------------------------------------------------------------|
-// |                                                                                   |
-// |                                                                                   |
-// |Functions -------------------------------------------------------------------------|
-// |-----------------------------------------------------------------------------------|
+// |------------------------------------------------------------------------------------|
+// |Functions---------------------------------------------------------------------------|
+// |                                                                                    |
+// |                                                                                    |
+// |Functions --------------------------------------------------------------------------|
+// |------------------------------------------------------------------------------------|
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+// Shuffle function from http://stackoverflow.com/a/2450976 -----------------------------
+//---------------------------------------------------------------------------------------
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -67,15 +71,18 @@ function shuffle(array) {
   return array;
 }
 
-// If <li> is clicked, call toggle classe function-----------------------------------
+// If <li> is clicked, call toggle classe function---------------------------------------
+//---------------------------------------------------------------------------------------
 function applyListener(event) {  
   const myClickedCard = event.target;
   if (myClickedCard.nodeName==="LI") {
     toggleCardClass(myClickedCard);
+    // startTimer(); // start the timer
   }
 }
 
-// Toggle the show/Open classes which turn card blue and show symbol-------------------
+// Toggle the show/Open classes which turn card blue and show symbol---------------------
+//---------------------------------------------------------------------------------------
 function toggleCardClass(myClickedCard) {
   if(!myClickedCard.classList.contains("match")) { //If already matched, don't allow user to interact with it
     event.target.classList.toggle("show");
@@ -84,9 +91,9 @@ function toggleCardClass(myClickedCard) {
   }
 }
 
-// Add clicked cards to the clickedCards array (will only have TWO cards at most)----
+// Add clicked cards to the clickedCards array (will only have TWO cards at most)--------
+//---------------------------------------------------------------------------------------
 function addCardsOpened(myClickedCard) {
-  // if (myClickedCard.classList.contains("open") && clickedCards.length <2) { // Add card to array ONLY if card recently toggled/flipped over
   if (myClickedCard.classList.contains("open") ) { // Add card to array ONLY if card recently toggled/flipped over
     clickedCards.push(myClickedCard);
 
@@ -96,22 +103,20 @@ function addCardsOpened(myClickedCard) {
   }
 }
 
-// Compare two cards when the array has two cards added to it----------------------
+// Compare two cards when the array has two cards added to it----------------------------
+//---------------------------------------------------------------------------------------
 function compareCards() {
-  // console.log(clickedCards);
-  // console.log(`${clickedCards[0].children[0].className} ---- ${clickedCards[1].children[0].className}`);
   const item_0 = clickedCards[0].children[0].className;
   const item_1 = clickedCards[1].children[0].className;
   if(item_0 === item_1) {
-    // console.log("we HAVE matched");
     cardsMatchTrue();    
   } else  {
-    // console.log("we have NOT matched");
     cardsMatchFalse();  
   }
 }
 
-// If cards match remove show/open class, add match class--------------------------
+// If cards match remove show/open class, add match class--------------------------------
+//---------------------------------------------------------------------------------------
 function cardsMatchTrue() {
   clickedCards[0].classList.remove("show"); 
   clickedCards[0].classList.remove("open"); 
@@ -124,7 +129,8 @@ function cardsMatchTrue() {
   isGameOver();         // After a successfull move, check if game is won or not
 }
 
-// If cards DO NOT match, remove show/open class(I.e., put face down)---------------
+// If cards DO NOT match, remove show/open class(I.e., put face down)--------------------
+//---------------------------------------------------------------------------------------
 function cardsMatchFalse() {
   clickedCards[0].classList.remove("show"); 
   clickedCards[0].classList.remove("open"); 
@@ -135,10 +141,10 @@ function cardsMatchFalse() {
   keepingScore();
 }
 
-// Increment move Counter-----------------------------------------------------------
+// Increment move Counter----------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 function incrementMoveCount() {
   moveCount++;
-  // console.log(moveCount);
   const movesOnPage = document.querySelector(".moves");
   if (moveCount == 1) { // Added this condition to check for 'one MOVE' vs 'two MOVES'
     movesOnPage.textContent = `${moveCount} Move`;
@@ -147,28 +153,16 @@ function incrementMoveCount() {
   }
 }
 
-// Check if game is won or not, returns bool-------------------------------------------
+// Check if game is won or not, returns bool---------------------------------------------
+//---------------------------------------------------------------------------------------
 function isGameOver() {
-  let matchCount = 0; // var to count number of MATCHED cards. If 16 matches, game===OVER
-  const getDeck = document.querySelectorAll(".card");
-
-  Array.prototype.forEach.call(getDeck, function (item) { //loop through nodelist
-    if( item.classList.contains('match') ) {
-      matchCount++;
-      // console.log(matchCount);
-    } 
-  });
-
-  if (matchCount === 16) { //If 16 matches, game is over
-    console.log("Game is over");
-    
-    return true;
-  } else  {
-    return false;
-  }
+  matchCount++;
+  console.log(matchCount);
+  
 }
 
-// Function that returns a double sized array of whatever is passed into it---------
+// Function that returns a double sized array of whatever is passed into it--------------
+//---------------------------------------------------------------------------------------
 function doubleArray(myArr) {
   tempArray = myArr;
   myArr = myArr.concat(tempArray);
@@ -183,10 +177,14 @@ function addShuffledClasses() {
   }
 }
 
-// Function to reduce score on an incorrrect guess
+// Function to reduce score on an incorrrect guess---------------------------------------
+//---------------------------------------------------------------------------------------
 function keepingScore() {
     myScore--;
 }
+
+// Functions for stop watch---------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
 
 /*
