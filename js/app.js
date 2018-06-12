@@ -27,7 +27,8 @@ console.log(manualList);
 const shuffledArray = shuffle(manualList);
 console.log(shuffledArray);
 
-
+// Add shuffled classes to the <i> elements
+addShuffledClasses();
 
 
 
@@ -170,8 +171,12 @@ function doubleArray(myArr) {
   return myArr;
 }
 
-function createShuffledHTMLdeck() {
+function addShuffledClasses() {
+  const deckOfCards =document.querySelector('.deck');
 
+  for (let i = 0; i < shuffledArray.length; i++) {
+    deckOfCards.children[i].children[0].className = shuffledArray[i];
+  }
 }
 
 
