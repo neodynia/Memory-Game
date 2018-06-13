@@ -34,6 +34,13 @@
 const shuffledArray = ["fa fa-diamond","fa fa-diamond", "fa fa-paper-plane-o","fa fa-paper-plane-o", "fa fa-anchor","fa fa-anchor", "fa fa-bolt","fa fa-bolt","fa fa-cube","fa fa-cube","fa fa-leaf","fa fa-leaf","fa fa-bomb","fa fa-bomb","fa fa-bicycle","fa fa-bicycle"];;
 addShuffledClasses();
 
+//Initialize Stop Watch Values
+let time = 0;           //time in mSec
+let interval;           //
+let offset;             //captures date.Now to capture start time
+let isOn = false;       //captures state of watch
+let firstMove = false;  //Will only be triggered once per game
+
 // Initialize winning move count
 let matchCount = 0;
 
@@ -53,10 +60,10 @@ let clickedCards = [];
 let moveCount = 0;
 
 // |------------------------------------------------------------------------------------|
-// |Functions---------------------------------------------------------------------------|
+// |Functions BELOW---------------------------------------------------------------------|
 // |                                                                                    |
 // |                                                                                    |
-// |Functions --------------------------------------------------------------------------|
+// |Functions BELOW---------------------------------------------------------------------|
 // |------------------------------------------------------------------------------------|
 
 // Shuffle function from http://stackoverflow.com/a/2450976 -----------------------------
@@ -71,7 +78,6 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 
@@ -81,7 +87,10 @@ function applyListener(event) {
   const myClickedCard = event.target;
   if (myClickedCard.nodeName==="LI") {
     toggleCardClass(myClickedCard);
-    // startTimer(); // start the timer
+    if (!firstMove) {   // Timer will only be started one time
+      startTimer();     // start the timer on first click on board
+      firstMove = true;     
+    }
   }
 }
 
@@ -161,8 +170,9 @@ function incrementMoveCount() {
 //---------------------------------------------------------------------------------------
 function isGameOver() {
   matchCount++;
-  if(matchCount == 8) {
+  if(matchCount === 8) {
     console.log(`${matchCount} moves and Game is Over`);
+    stopTimer();  //Stop timer on end game condition
   }
 }
 
@@ -192,18 +202,14 @@ function keepingScore() {
 
 // Functions for stop watch--------------------------------------------------------------
 //---------------------------------------------------------------------------------------
-let time = 0; //time in mSec
-let interval; //
-let offset;   //captures date.Now to capture start time
-let isOn = false; //captures state of watch
-
-function update() { 
+function update() { //add time passed to previous time
   time += delta();
   let formattedTime = timeFormatter(time);
   console.log(formattedTime); 
+  document.querySelector('.myTimer').textContent = formattedTime;
 }
 
-function delta() {
+function delta() {  //Function to get amount of time passed
   let now = Date.now();
   let timePassed = now - offset;
   offset = now;
@@ -213,18 +219,16 @@ function delta() {
 function timeFormatter(timeInMsecs) {
   let time = new Date(timeInMsecs);
 
-  const distance = new Date().getTime() - offset;
   let hours = Math.floor(((new Date().getTime() - offset) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
   let minutes = time.getMinutes().toString();
   let seconds = time.getSeconds().toString();
-  let milliseconds = time.getMilliseconds().toString();
+  let milliseconds = time.getMilliseconds().toString(); //Not in use at the moment
 
-  if (minutes.length < 2) {
+  if (minutes.length < 2) { //Formatting to keep minutes at 2 decimals
     minutes = '0' + minutes;
   }
 
-  if (seconds.length < 2) {
+  if (seconds.length < 2) { //Formatting to keep seconds at 2 decimals
     seconds = '0' + seconds;
   }
 
