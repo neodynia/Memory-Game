@@ -190,8 +190,68 @@ function keepingScore() {
     myScore--;
 }
 
-// Functions for stop watch---------------------------------------------------------------
+// Functions for stop watch--------------------------------------------------------------
 //---------------------------------------------------------------------------------------
+let time = 0; //time in mSec
+let interval; //
+let offset;   //captures date.Now to capture start time
+let isOn = false; //captures state of watch
+
+function update() { 
+  time += delta();
+  let formattedTime = timeFormatter(time);
+  console.log(formattedTime); 
+}
+
+function delta() {
+  let now = Date.now();
+  let timePassed = now - offset;
+  offset = now;
+  return timePassed;
+}
+
+function timeFormatter(timeInMsecs) {
+  let time = new Date(timeInMsecs);
+
+  const distance = new Date().getTime() - offset;
+  let hours = Math.floor(((new Date().getTime() - offset) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  let minutes = time.getMinutes().toString();
+  let seconds = time.getSeconds().toString();
+  let milliseconds = time.getMilliseconds().toString();
+
+  if (minutes.length < 2) {
+    minutes = '0' + minutes;
+  }
+
+  if (seconds.length < 2) {
+    seconds = '0' + seconds;
+  }
+
+  return `${hours} : ${minutes} : ${seconds}`;
+}
+
+function startTimer() {
+  if(!isOn) {
+    interval = setInterval(update, 500);
+    offset = Date.now();
+    isOn = true;
+  }
+}
+
+function stopTimer() {
+  if (isOn) {
+    clearInterval(interval);
+    interval = null;
+    isOn = false;
+  }
+}
+
+function resetTimer() {
+  time = 0;
+}
+
+
 
 
 /*
