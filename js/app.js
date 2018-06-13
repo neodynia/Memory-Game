@@ -30,10 +30,14 @@
 
 // Comment out ABOVE to use fixed board ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+// Temporary simple solve deck for testing. Comment OUT to not use.
+const shuffledArray = ["fa fa-diamond","fa fa-diamond", "fa fa-paper-plane-o","fa fa-paper-plane-o", "fa fa-anchor","fa fa-anchor", "fa fa-bolt","fa fa-bolt","fa fa-cube","fa fa-cube","fa fa-leaf","fa fa-leaf","fa fa-bomb","fa fa-bomb","fa fa-bicycle","fa fa-bicycle"];;
+addShuffledClasses();
+
 // Initialize winning move count
 let matchCount = 0;
 
-// Scoring system
+// Scoring system, mostly for stars and removal
 let myScore = 10;
 
 // Add Event Listeners to cards via event delegation and 
@@ -157,8 +161,9 @@ function incrementMoveCount() {
 //---------------------------------------------------------------------------------------
 function isGameOver() {
   matchCount++;
-  console.log(matchCount);
-  
+  if(matchCount == 8) {
+    console.log(`${matchCount} moves and Game is Over`);
+  }
 }
 
 // Function that returns a double sized array of whatever is passed into it--------------
@@ -169,6 +174,8 @@ function doubleArray(myArr) {
   return myArr;
 }
 
+// Function that adds shuffled cards to the deck-----------------------------------------
+//---------------------------------------------------------------------------------------
 function addShuffledClasses() {
   const deckOfCards =document.querySelector('.deck');
 
